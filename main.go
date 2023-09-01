@@ -48,6 +48,11 @@ func initRouter(appCfg config.IConfig) *gin.Engine {
 		api.POST("/user/register", app.RegisterUser)
 		secured := api.Group("/secured").Use(middlewares.Auth(app.Config.GetAppConfig().JwtSecret))
 		{
+
+			api.GET("/user/:id", app.GetUserProfile)       // Get user profile by ID
+			api.PUT("/user/:id", app.UpdateUserProfile)    // Update user profile by ID
+			api.DELETE("/user/:id", app.DeleteUserProfile) // Delete user profile by ID
+
 			secured.GET("/ping", app.Ping)
 		}
 	}
